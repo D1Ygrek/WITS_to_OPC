@@ -5,6 +5,22 @@ from opcua import Server
 from time import sleep
 
 
+raw = open('settings.txt', 'r').read().replace(" ", "").splitlines()
+print(raw)
+
+settings = {
+    'ip':'',
+    'port':0
+}
+
+for item in raw:
+    name, value = item.split('=')
+    try:
+        settings[name] = value
+    except Exception as exc:
+        print(exc)
+        print('Не удалось считать настройки из settings.txt')
+
 # General_Time_Based_arr = []
 # Drilling_Depth_Based_arr = []
 # Drilling_Connections_arr = []
@@ -15,7 +31,7 @@ from time import sleep
 main_arr=[]
 
 sock = socket.socket()
-sock.bind(('', 12000))
+sock.bind(('', int(settings['port'])))
 sock.listen(1)
 
 def OPCStart():

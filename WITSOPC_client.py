@@ -3,9 +3,23 @@ sys.path.insert(0, "..")
 import socket
 from opcua import Server
 from time import sleep
-settings_file = open('settings.txt', 'r')
-str = settings_file.read()
-print(str)
+raw = open('settings.txt', 'r').read().replace(" ", "").splitlines()
+print(raw)
+
+settings = {
+    'ip':'',
+    'port':0
+}
+
+for item in raw:
+    name, value = item.split('=')
+    try:
+        settings[name] = value
+    except Exception as exc:
+        print(exc)
+        print('Не удалось считать настройки из settings.txt')
+
+
 
 
 # General_Time_Based_arr = []
@@ -22,7 +36,7 @@ def OPCStart():
     #--------------------------Server setup and config-------------------------------------------------------------------
     #--------------------------------------------------------------------------------------------------------------------
     server = Server()
-    server.set_endpoint("opc.tcp://0.0.0.0:5000")
+    server.set_endpoint("opc.tcp://0.0.0.0:5050")
     #--------------------------------------------------------------------------------------------------------------------
     #--------------------------dataspace setup---------------------------------------------------------------------------
     #--------------------------------------------------------------------------------------------------------------------
@@ -126,7 +140,8 @@ def WITSLoop():
         try:
             sock=socket.socket()
             sock.settimeout(5)
-            sock.connect(("192.168.10.241",12000))            
+            print(settings['ip'],int(settings['port']))
+            sock.connect((settings['ip'],int(settings['port'])))            
             print('connected')
             while True:
                 data = None
