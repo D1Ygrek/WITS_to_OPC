@@ -3,6 +3,9 @@ sys.path.insert(0, "..")
 import socket
 from opcua import Server
 from time import sleep
+settings_file = open('settings.txt', 'r')
+str = settings_file.read()
+print(str)
 
 
 # General_Time_Based_arr = []
