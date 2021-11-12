@@ -1,3 +1,3 @@
 @echo off
-python WITSOPC_client.py
+python WITSOPC_serv.py
 pause

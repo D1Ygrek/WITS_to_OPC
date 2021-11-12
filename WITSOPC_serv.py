@@ -165,7 +165,7 @@ def WITSLoop():
                     pass
                 else:
                     #print('connection normal')
-                    count=0;
+                    count=1;
                     try:
                         socketParser(data)
                     except Exception as exc:

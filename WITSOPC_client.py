@@ -135,8 +135,8 @@ def socketParser(data):
                 print(exc)
                 pass
 def WITSLoop():
-    count = 0
-    while count < 2000:
+    count = 1
+    while count > 0:
         try:
             sock=socket.socket()
             sock.settimeout(5)
